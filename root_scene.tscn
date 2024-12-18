@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8urp15rq08qx"]
+
+[ext_resource type="Script" path="res://player_controller.gd" id="1_e2uro"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sq3vr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rso30"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wc2k1"]
+radius = 0.596842
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gdje3"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nag3i"]
+
+[node name="RootScene" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.85425, 0.519862, 0, -0.519862, 0.85425, 0, 1.63771, 0)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23345, 0)
+script = ExtResource("1_e2uro")
+look_sensitivity = 0.5
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00734169, 0, 0.00925184)
+mesh = SubResource("CapsuleMesh_sq3vr")
+
+[node name="GunMesh" type="MeshInstance3D" parent="Player/PlayerMesh"]
+transform = Transform3D(-0.0364248, 0.00146434, 0.0948461, 0.000183967, -0.206787, 0.000672174, -1.69125, -5.40314e-05, -0.00204265, 0.442991, 0.532232, -0.689332)
+mesh = SubResource("BoxMesh_rso30")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_wc2k1")
+
+[node name="CameraOrigin" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277238, 0.371405, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraOrigin"]
+spring_length = 3.0
+margin = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.989216, 0.146463, 0, -0.146463, 0.989216, 0.598917, 1.46111, 2.48798)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_gdje3")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
+mesh = SubResource("BoxMesh_nag3i")
