@@ -1,9 +1,11 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-@onready var cam_pivot: Node3D = $CameraOrigin
+@onready var cam_yaw: Node3D = $CamRoot/CamYaw
+@onready var cam_pitch: Node3D = $CamRoot/CamYaw/CamPitch
+
+
 @export var look_sensitivity = 1.0
 
 func _ready():
@@ -11,16 +13,9 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
-		cam_pivot.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
-		cam_pivot.rotation.x = clamp(cam_pivot.rotation.x, deg_to_rad(-90), deg_to_rad(45))
-			
-			#cam_pivot.rotation_degrees.z = 0
-		print(cam_pivot.rotation_degrees)
-		#else: 
-			##TODO LERP CAMERA BACK BEHIND PLAYER?
-			#rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
-			#cam_pivot.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
+		cam_yaw.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
+		cam_pitch.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
+		cam_pitch.rotation.x = clamp(cam_pitch.rotation.x, deg_to_rad(-90), deg_to_rad(45))
 		
 
 func _physics_process(delta: float) -> void:

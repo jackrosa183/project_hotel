@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8urp15rq08qx"]
+[gd_scene load_steps=9 format=3 uid="uid://c8urp15rq08qx"]
 
-[ext_resource type="Script" path="res://player_controller.gd" id="1_e2uro"]
+[ext_resource type="Script" path="res://Player/player_controller.gd" id="1_e2uro"]
+[ext_resource type="Environment" uid="uid://dgl1w0e41dioy" path="res://main_environment.tres" id="2_ov25v"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sq3vr"]
 
@@ -9,10 +10,12 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wc2k1"]
 radius = 0.596842
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gdje3"]
-size = Vector3(60, 2, 60)
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hdjmq"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_nag3i"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_t0lme"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yie2l"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
 [node name="RootScene" type="Node3D"]
 
@@ -35,21 +38,29 @@ mesh = SubResource("BoxMesh_rso30")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_wc2k1")
 
-[node name="CameraOrigin" type="Node3D" parent="Player"]
+[node name="CamRoot" type="Node3D" parent="Player"]
+
+[node name="CamYaw" type="Node3D" parent="Player/CamRoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277238, 0.371405, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraOrigin"]
+[node name="CamPitch" type="Node3D" parent="Player/CamRoot/CamYaw"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamRoot/CamYaw/CamPitch"]
 spring_length = 3.0
 margin = 0.0
 
-[node name="Camera3D" type="Camera3D" parent="Player/CameraOrigin/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Player/CamRoot/CamYaw/CamPitch/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 0.989216, 0.146463, 0, -0.146463, 0.989216, 0.598917, 1.46111, 2.48798)
 
-[node name="Ground" type="StaticBody3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_ov25v")
+camera_attributes = SubResource("CameraAttributesPractical_hdjmq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_gdje3")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("PlaneMesh_t0lme")
 
-[node name="FloorMesh" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
-mesh = SubResource("BoxMesh_nag3i")
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_yie2l")
