@@ -4,9 +4,13 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 @onready var cam_yaw: Node3D = $CamRoot/CamYaw
 @onready var cam_pitch: Node3D = $CamRoot/CamYaw/CamPitch
+@onready var player_cam: Camera3D = $CamRoot/CamYaw/CamPitch/SpringArm3D/Camera3D
+@onready var armature: Node3D = $Armature
+@onready var char_pivot: Node3D = $Node3D
 
 
 @export var look_sensitivity = 1.0
+@export var lerp_val = .1
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED	
@@ -16,7 +20,6 @@ func _input(event):
 		cam_yaw.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
 		cam_pitch.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
 		cam_pitch.rotation.x = clamp(cam_pitch.rotation.x, deg_to_rad(-90), deg_to_rad(45))
-		
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -35,9 +38,11 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction = direction.rotated(Vector3.UP, cam_yaw.rotation.y)
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+		char_pivot.rotation.y = lerp_angle(char_pivot.rotation.y, atan2(-velocity.x, -velocity.z), lerp_val)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)

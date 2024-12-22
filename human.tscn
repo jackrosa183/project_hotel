@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brqi6h16hbsnk"]
+
+[ext_resource type="PackedScene" uid="uid://ohtafc81iig0" path="res://blender/human.glb" id="1_kgnco"]
+
+[node name="human" instance=ExtResource("1_kgnco")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

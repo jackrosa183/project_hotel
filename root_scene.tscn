@@ -1,11 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8urp15rq08qx"]
+[gd_scene load_steps=10 format=3 uid="uid://c8urp15rq08qx"]
 
 [ext_resource type="Script" path="res://Player/player_controller.gd" id="1_e2uro"]
+[ext_resource type="PackedScene" uid="uid://ohtafc81iig0" path="res://blender/human.glb" id="2_loklw"]
 [ext_resource type="Environment" uid="uid://dgl1w0e41dioy" path="res://main_environment.tres" id="2_ov25v"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sq3vr"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_rso30"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wc2k1"]
 radius = 0.596842
@@ -17,6 +14,11 @@ radius = 0.596842
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yie2l"]
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_siq1p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45jao"]
+albedo_color = Color(0.392157, 0.203922, 1, 1)
+
 [node name="RootScene" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -27,13 +29,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_e2uro")
 look_sensitivity = 0.5
 
-[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00734169, 0, 0.00925184)
-mesh = SubResource("CapsuleMesh_sq3vr")
+[node name="Node3D" type="Node3D" parent="Player"]
 
-[node name="GunMesh" type="MeshInstance3D" parent="Player/PlayerMesh"]
-transform = Transform3D(-0.0364248, 0.00146434, 0.0948461, 0.000183967, -0.206787, 0.000672174, -1.69125, -5.40314e-05, -0.00204265, 0.442991, 0.532232, -0.689332)
-mesh = SubResource("BoxMesh_rso30")
+[node name="human" parent="Player/Node3D" instance=ExtResource("2_loklw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.929215, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_wc2k1")
@@ -56,11 +55,22 @@ transform = Transform3D(1, 0, 0, 0, 0.989216, 0.146463, 0, -0.146463, 0.989216, 
 environment = ExtResource("2_ov25v")
 camera_attributes = SubResource("CameraAttributesPractical_hdjmq")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
 mesh = SubResource("PlaneMesh_t0lme")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000273768, -0.000291224, 9.93649e-05)
 shape = SubResource("ConcavePolygonShape3D_yie2l")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.45926, 0, 0, 0, 18.6314, 0, 0, 0, 1, 0, 0, -16.5148)
+mesh = SubResource("BoxMesh_siq1p")
+surface_material_override/0 = SubResource("StandardMaterial3D_45jao")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.45926, 0, 0, 0, 37.4377, 0, 0, 0, 1, 13.9374, 0, 0.338697)
+mesh = SubResource("BoxMesh_siq1p")
+surface_material_override/0 = SubResource("StandardMaterial3D_45jao")
