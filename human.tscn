@@ -1,39 +1,66 @@
-[gd_scene load_steps=2 format=3 uid="uid://brqi6h16hbsnk"]
+[gd_scene load_steps=4 format=3 uid="uid://brqi6h16hbsnk"]
 
 [ext_resource type="PackedScene" uid="uid://ohtafc81iig0" path="res://blender/human.glb" id="1_kgnco"]
+[ext_resource type="Script" path="res://Player/player_controller.gd" id="2_1do32"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gwng3"]
+radius = 0.596842
 
 [node name="human" instance=ExtResource("1_kgnco")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("2_1do32")
+
+[node name="Node3D" type="Node3D" parent="." index="0"]
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(-2.35091e-11, 0.0936652, 4.08716e-11)
-bones/0/rotation = Quaternion(-0.00647464, -0.110953, -0.000722862, 0.993804)
+bones/0/position = Vector3(0, 0.101233, 0)
+bones/0/rotation = Quaternion(-0.00651486, 1.19207e-07, -7.76632e-10, 0.999979)
 bones/1/position = Vector3(0.2502, 0.349259, 0.00455109)
-bones/1/rotation = Quaternion(0.00293398, 0.0609779, -0.997432, 0.0374545)
-bones/2/rotation = Quaternion(0.107438, -0.00776735, -0.00780282, 0.994151)
-bones/3/rotation = Quaternion(5.92408e-10, 1.41343e-09, 0.00941203, 0.999956)
-bones/4/rotation = Quaternion(0.11376, 0.0669861, 0.991126, -0.015532)
+bones/1/rotation = Quaternion(0.00032136, 0.00650693, -0.998762, 0.0493127)
+bones/2/rotation = Quaternion(-7.11318e-10, -1.91062e-09, -0.00941203, 0.999956)
+bones/3/rotation = Quaternion(7.04554e-10, 1.4173e-09, 0.00941203, 0.999956)
+bones/4/rotation = Quaternion(0.00217758, 0.0417537, 0.999124, -0.00171545)
 bones/4/scale = Vector3(1, 1, 1.00008)
-bones/5/rotation = Quaternion(-0.160074, -0.000278932, -0.0112249, 0.987041)
-bones/6/rotation = Quaternion(0.684927, -0.0482776, -0.0799875, 0.722597)
+bones/5/rotation = Quaternion(-0.0922626, -0.000281391, -0.00646979, 0.995714)
+bones/6/rotation = Quaternion(0.654197, -0.0529111, -0.0769915, 0.750532)
 bones/6/scale = Vector3(1, 1.00003, 0.999996)
-bones/7/rotation = Quaternion(0.00651486, -1.30107e-17, 1.55326e-09, 0.999979)
-bones/8/rotation = Quaternion(0.160711, -0.0868077, -0.00998226, 0.983126)
+bones/8/rotation = Quaternion(-2.90983e-26, -1.19209e-07, -1.23173e-26, 1)
 bones/9/position = Vector3(-0.2502, 0.349259, 0.00455098)
-bones/9/rotation = Quaternion(0.00162132, 0.00565161, 0.996424, 0.0842931)
+bones/9/rotation = Quaternion(0.0003732, -0.00650417, 0.998335, 0.0573063)
 bones/10/rotation = Quaternion(-4.6416e-10, 1.90829e-09, 0.00941203, 0.999956)
-bones/11/rotation = Quaternion(5.92408e-10, -1.41343e-09, -0.00941203, 0.999956)
+bones/11/rotation = Quaternion(7.04554e-10, -1.41002e-09, -0.00941203, 0.999956)
 bones/12/position = Vector3(-0.123967, 0.00656434, -0.000592688)
-bones/12/rotation = Quaternion(0.106836, 0.103348, 0.988873, -0.00598787)
+bones/12/rotation = Quaternion(-0.0021778, 0.0417539, 0.999124, 0.00171549)
 bones/12/scale = Vector3(1, 1, 1.00008)
-bones/13/rotation = Quaternion(-0.166692, 0.0002786, 0.0116889, 0.98594)
+bones/13/rotation = Quaternion(-0.092263, 0.000281377, 0.00646983, 0.995714)
 bones/13/scale = Vector3(1, 0.999999, 1)
-bones/14/rotation = Quaternion(0.663963, 0.0506369, 0.0781839, 0.741941)
+bones/14/rotation = Quaternion(0.654197, 0.0529111, 0.0769914, 0.750532)
 bones/14/scale = Vector3(1, 1.00003, 0.999996)
 bones/15/rotation = Quaternion(-0.00114757, 0.707106, 0.707106, -0.00114757)
 bones/16/position = Vector3(0.11965, -0.780614, -0.0156499)
 bones/16/rotation = Quaternion(0.00341613, 0.707098, -0.707099, -0.00341613)
 bones/16/scale = Vector3(1, 1, 1)
+bones/17/rotation = Quaternion(0.00114757, 0.707106, 0.707106, 0.00114757)
 bones/18/position = Vector3(-0.11965, -0.780614, -0.0156499)
 bones/18/rotation = Quaternion(-0.00341613, 0.707098, -0.707099, 0.00341613)
 bones/18/scale = Vector3(1, 1, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_gwng3")
+
+[node name="CamRoot" type="Node3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49658e-07, 1, 1.71189)
+
+[node name="CamYaw" type="Node3D" parent="CamRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277238, 0.371405, -1.74032)
+
+[node name="CamPitch" type="Node3D" parent="CamRoot/CamYaw" index="0"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamRoot/CamYaw/CamPitch" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, 0, 1.52031)
+spring_length = 3.0
+margin = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="CamRoot/CamYaw/CamPitch/SpringArm3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.989216, 0.146463, 0, -0.146463, 0.989216, 0.598917, 1.46111, 2.48798)

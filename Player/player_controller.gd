@@ -6,7 +6,7 @@ const JUMP_VELOCITY = 4.5
 @onready var cam_pitch: Node3D = $CamRoot/CamYaw/CamPitch
 @onready var player_cam: Camera3D = $CamRoot/CamYaw/CamPitch/SpringArm3D/Camera3D
 @onready var armature: Node3D = $Armature
-@onready var char_pivot: Node3D = $Node3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 @export var look_sensitivity = 1.0
@@ -40,10 +40,12 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	direction = direction.rotated(Vector3.UP, cam_yaw.rotation.y)
 	if direction:
+		animation_player.play("walk")
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
-		char_pivot.rotation.y = lerp_angle(char_pivot.rotation.y, atan2(-velocity.x, -velocity.z), lerp_val)
+		armature.rotation.y = lerp_angle(armature.rotation.y, atan2(-velocity.x, -velocity.z), lerp_val)
 	else:
+		animation_player.play("idle")
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 

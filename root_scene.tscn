@@ -1,11 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8urp15rq08qx"]
+[gd_scene load_steps=8 format=3 uid="uid://c8urp15rq08qx"]
 
-[ext_resource type="Script" path="res://Player/player_controller.gd" id="1_e2uro"]
-[ext_resource type="PackedScene" uid="uid://ohtafc81iig0" path="res://blender/human.glb" id="2_loklw"]
+[ext_resource type="PackedScene" uid="uid://brqi6h16hbsnk" path="res://human.tscn" id="2_ciu22"]
 [ext_resource type="Environment" uid="uid://dgl1w0e41dioy" path="res://main_environment.tres" id="2_ov25v"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wc2k1"]
-radius = 0.596842
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hdjmq"]
 
@@ -24,33 +20,6 @@ albedo_color = Color(0.392157, 0.203922, 1, 1)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.85425, 0.519862, 0, -0.519862, 0.85425, 0, 1.63771, 0)
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1_e2uro")
-look_sensitivity = 0.5
-
-[node name="Node3D" type="Node3D" parent="Player"]
-
-[node name="human" parent="Player/Node3D" instance=ExtResource("2_loklw")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.929215, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_wc2k1")
-
-[node name="CamRoot" type="Node3D" parent="Player"]
-
-[node name="CamYaw" type="Node3D" parent="Player/CamRoot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277238, 0.371405, 0)
-
-[node name="CamPitch" type="Node3D" parent="Player/CamRoot/CamYaw"]
-
-[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamRoot/CamYaw/CamPitch"]
-spring_length = 3.0
-margin = 0.0
-
-[node name="Camera3D" type="Camera3D" parent="Player/CamRoot/CamYaw/CamPitch/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 0.989216, 0.146463, 0, -0.146463, 0.989216, 0.598917, 1.46111, 2.48798)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_ov25v")
 camera_attributes = SubResource("CameraAttributesPractical_hdjmq")
@@ -65,12 +34,15 @@ mesh = SubResource("PlaneMesh_t0lme")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000273768, -0.000291224, 9.93649e-05)
 shape = SubResource("ConcavePolygonShape3D_yie2l")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Pillar1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.45926, 0, 0, 0, 18.6314, 0, 0, 0, 1, 0, 0, -16.5148)
 mesh = SubResource("BoxMesh_siq1p")
 surface_material_override/0 = SubResource("StandardMaterial3D_45jao")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+[node name="Pillar2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.45926, 0, 0, 0, 37.4377, 0, 0, 0, 1, 13.9374, 0, 0.338697)
 mesh = SubResource("BoxMesh_siq1p")
 surface_material_override/0 = SubResource("StandardMaterial3D_45jao")
+
+[node name="human" parent="." instance=ExtResource("2_ciu22")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.12987, 0.325078, -0.283224)
