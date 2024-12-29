@@ -46,3 +46,4 @@ surface_material_override/0 = SubResource("StandardMaterial3D_45jao")
 
 [node name="human" parent="." instance=ExtResource("2_ciu22")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.12987, 0.325078, -0.283224)
+anim_blend_speed = 5
