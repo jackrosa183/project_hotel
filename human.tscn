@@ -33,28 +33,28 @@ anim_blend_speed = 5
 [node name="Node3D" type="Node3D" parent="." index="0"]
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(-2.31976e-12, 0.100486, 1.03004e-10)
-bones/0/rotation = Quaternion(-0.00651481, -0.00417976, -2.72327e-05, 0.99997)
+bones/0/position = Vector3(-1.38896e-11, 0.0967618, 7.13514e-11)
+bones/0/rotation = Quaternion(-0.00651118, 0.0336178, 0.000219018, 0.999414)
 bones/1/position = Vector3(0.2502, 0.349259, 0.00455109)
-bones/1/rotation = Quaternion(0.00232035, 0.0481842, -0.998024, 0.040254)
-bones/2/rotation = Quaternion(0.187827, -0.0135791, -0.00652609, 0.982087)
+bones/1/rotation = Quaternion(0.000577745, 0.0118523, -0.998769, 0.0481561)
+bones/2/rotation = Quaternion(0.0365434, -0.00264195, -0.008877, 0.999289)
 bones/3/rotation = Quaternion(7.04554e-10, 1.4173e-09, 0.00941203, 0.999956)
-bones/4/rotation = Quaternion(0.00635318, 0.04651, 0.998895, -0.00234855)
+bones/4/rotation = Quaternion(-0.0311406, 0.0752636, 0.996677, -0.00100842)
 bones/4/scale = Vector3(1, 1, 1.00008)
-bones/5/rotation = Quaternion(-0.100946, -0.000281153, -0.00707867, 0.994867)
-bones/6/rotation = Quaternion(0.657214, -0.0524438, -0.0770296, 0.747921)
+bones/5/rotation = Quaternion(-0.138809, -0.000279853, -0.0097337, 0.990271)
+bones/6/rotation = Quaternion(0.664224, -0.0510701, -0.0769163, 0.74181)
 bones/6/scale = Vector3(1, 1.00003, 0.999996)
-bones/8/rotation = Quaternion(0.0438122, 0.0750479, -0.0483813, 0.995041)
+bones/8/rotation = Quaternion(-0.0143769, 0.060609, -0.0196663, 0.997864)
 bones/9/position = Vector3(-0.2502, 0.349259, 0.00455098)
-bones/9/rotation = Quaternion(-0.00215207, 0.0706812, 0.994478, 0.0775387)
+bones/9/rotation = Quaternion(-0.001756, 0.0308487, 0.997746, 0.0595626)
 bones/10/rotation = Quaternion(-4.6416e-10, 1.90829e-09, 0.00941203, 0.999956)
 bones/11/rotation = Quaternion(7.04554e-10, -1.41002e-09, -0.00941203, 0.999956)
 bones/12/position = Vector3(-0.123967, 0.00656434, -0.000592688)
-bones/12/rotation = Quaternion(0.00200259, 0.0479996, 0.998844, 0.00188105)
+bones/12/rotation = Quaternion(-0.0357841, 0.0641334, 0.997279, 0.00643495)
 bones/12/scale = Vector3(1, 1, 1.00008)
-bones/13/rotation = Quaternion(-0.101355, 0.000281127, 0.00710742, 0.994825)
+bones/13/rotation = Quaternion(-0.136417, 0.000279933, 0.00956603, 0.990605)
 bones/13/scale = Vector3(1, 0.999999, 1)
-bones/14/rotation = Quaternion(0.656424, 0.0525241, 0.0769634, 0.748616)
+bones/14/rotation = Quaternion(0.670494, 0.0504096, 0.0774293, 0.73614)
 bones/14/scale = Vector3(1, 1.00003, 0.999996)
 bones/15/rotation = Quaternion(-0.00114757, 0.707106, 0.707106, -0.00114757)
 bones/16/position = Vector3(0.11965, -0.780614, -0.0156499)
@@ -75,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_gwng3")
 
 [node name="CamRoot" type="Node3D" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49658e-07, 1, 1.71189)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.862, 1.712)
 
 [node name="CamYaw" type="Node3D" parent="CamRoot" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277238, 0.371405, -1.74032)
@@ -89,3 +89,6 @@ margin = 0.0
 
 [node name="Camera3D" type="Camera3D" parent="CamRoot/CamYaw/CamPitch/SpringArm3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.989216, 0.146463, 0, -0.146463, 0.989216, 0.598917, 1.46111, 2.48798)
+
+[node name="ZoomTarget" type="Node3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00589739, 1.70313, -0.139266)

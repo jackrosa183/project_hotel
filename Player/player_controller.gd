@@ -8,15 +8,20 @@ const JUMP_VELOCITY = 4.5
 @onready var armature: Node3D = $Armature
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var zoom_target: Node3D = $ZoomTarget
+@onready var cam_root: Node3D = $CamRoot
 
 
 @export var look_sensitivity = 1.0
 @export var lerp_val = .1
 @export var anim_blend_speed = 15
+@export var zoom_speed = 15
+@export var zoom_fov = 10
 
 var walk_val = 0
 enum {IDLE,WALK}
 var current_anim = IDLE
+var target_fov = 75
 
 func handle_animation(delta):
 	match current_anim:
@@ -37,12 +42,19 @@ func _input(event):
 		cam_yaw.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity))
 		cam_pitch.rotate_x(deg_to_rad(-event.relative.y * look_sensitivity))
 		cam_pitch.rotation.x = clamp(cam_pitch.rotation.x, deg_to_rad(-90), deg_to_rad(45))
+		
+	if Input.is_action_just_pressed("right_click"):
+		target_fov = 30
+	if Input.is_action_just_released("right_click"):
+		target_fov = 75
 
 func _physics_process(delta: float) -> void:
 	handle_animation(delta)
 	# Add gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+	player_cam.fov = lerpf(player_cam.fov, target_fov, zoom_speed * delta)
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
